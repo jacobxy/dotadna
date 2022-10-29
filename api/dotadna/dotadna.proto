@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package api.dotadna;
+
+import "google/api/annotations.proto";
+
+option go_package = "dotadna/api/dotadna;dotadna";
+option java_multiple_files = true;
+option java_package = "api.dotadna";
+
+service Dotadna {
+	rpc GetMatchList(MatchListReq) returns (MatchListResp) {
+		option (google.api.http) = {
+			get: "/v1/match/list"
+		};
+	}
+
+	rpc GetMatchDetial(MatchDetialReq) returns (MatchDetialResp) {
+		option (google.api.http) = {
+			get: "/v1/match/detial"
+		};
+	}
+}
+
+message MatchInfo {
+	int64 match_id = 1;
+	int64 start_time = 2;
+	int64 duration = 3;
+	int64 radiant_team_id = 4;
+	int64 dire_team_id = 5;
+	int64 leagueid = 6;
+	int64 series_id = 7;
+	int64 series_type = 8;
+	string radiant_name = 9;
+	string dire_name = 10;
+	string league_name = 11;
+}
+
+message MatchListReq {
+	int64 leagueid = 1;
+}
+message MatchListResp {
+	repeated MatchInfo matches = 1;
+}
+
+message MatchDetialReq {
+	int64 matchid = 1;
+}
+
+message PlayerInfo {
+	int64 hero_id = 1;
+	int64 kill = 2;
+	int64 death = 3;
+	int64 assist = 4;
+	int64 last_hits = 5;
+	int64 denies = 6;
+	int64 gold_per_min = 7;
+	int64 xp_per_min = 8;
+	int64 level = 9;
+	int64 hero_damage = 10;
+	int64 tower_damage = 11;
+	int64 hero_healing = 12;
+	int64 networth = 13;
+	int64 gold_spent = 14;
+}
+
+message MatchDetialResp {
+	int64 matchid = 1;
+	int64 winner = 2;
+	repeated int64 radiant_heroes = 3;
+	repeated int64 dire_heroes = 4;
+	repeated PlayerInfo radiant_players = 5;
+	repeated PlayerInfo dire_players = 6;
+}
+
