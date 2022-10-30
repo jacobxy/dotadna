@@ -49,3 +49,8 @@ docker build -t <your-docker-image-name> .
 docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
 ```
 
+
+# api
+http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1/?key=5B855D62A04C9803566445B909B743F0&match_id=6832287527
+
+http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1/?key=5B855D62A04C9803566445B909B743F0&league_id=1224
