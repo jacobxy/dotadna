@@ -3,15 +3,13 @@
 
 openapi: 3.0.3
 info:
-    title: Greeter API
-    description: The greeting service definition.
+    title: ""
     version: 0.0.1
 paths:
     /helloworld/{name}:
         get:
             tags:
                 - Greeter
-                - subgroup
             description: Sends a greeting
             operationId: Greeter_SayHello
             parameters:
@@ -27,8 +25,156 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/helloworld.v1.HelloReply'
+    /v1/match/detial:
+        get:
+            tags:
+                - Dotadna
+            operationId: Dotadna_GetMatchDetial
+            parameters:
+                - name: matchid
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dotadna.MatchDetialResp'
+    /v1/match/list:
+        get:
+            tags:
+                - Dotadna
+            operationId: Dotadna_GetMatchList
+            parameters:
+                - name: leagueid
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dotadna.MatchListResp'
 components:
     schemas:
+        api.dotadna.MatchDetialResp:
+            type: object
+            properties:
+                matchid:
+                    type: integer
+                    format: int64
+                winner:
+                    type: integer
+                    format: int64
+                radiantHeroes:
+                    type: array
+                    items:
+                        type: integer
+                        format: int64
+                direHeroes:
+                    type: array
+                    items:
+                        type: integer
+                        format: int64
+                radiantPlayers:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.dotadna.PlayerInfo'
+                direPlayers:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.dotadna.PlayerInfo'
+        api.dotadna.MatchInfo:
+            type: object
+            properties:
+                matchId:
+                    type: integer
+                    format: int64
+                startTime:
+                    type: integer
+                    format: int64
+                duration:
+                    type: integer
+                    format: int64
+                radiantTeamId:
+                    type: integer
+                    format: int64
+                direTeamId:
+                    type: integer
+                    format: int64
+                leagueid:
+                    type: integer
+                    format: int64
+                seriesId:
+                    type: integer
+                    format: int64
+                seriesType:
+                    type: integer
+                    format: int64
+                radiantName:
+                    type: string
+                direName:
+                    type: string
+                leagueName:
+                    type: string
+        api.dotadna.MatchListResp:
+            type: object
+            properties:
+                matches:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.dotadna.MatchInfo'
+        api.dotadna.PlayerInfo:
+            type: object
+            properties:
+                heroId:
+                    type: integer
+                    format: int64
+                kill:
+                    type: integer
+                    format: int64
+                death:
+                    type: integer
+                    format: int64
+                assist:
+                    type: integer
+                    format: int64
+                lastHits:
+                    type: integer
+                    format: int64
+                denies:
+                    type: integer
+                    format: int64
+                goldPerMin:
+                    type: integer
+                    format: int64
+                xpPerMin:
+                    type: integer
+                    format: int64
+                level:
+                    type: integer
+                    format: int64
+                heroDamage:
+                    type: integer
+                    format: int64
+                towerDamage:
+                    type: integer
+                    format: int64
+                heroHealing:
+                    type: integer
+                    format: int64
+                networth:
+                    type: integer
+                    format: int64
+                goldSpent:
+                    type: integer
+                    format: int64
         helloworld.v1.HelloReply:
             type: object
             properties:
@@ -36,4 +182,6 @@ components:
                     type: string
             description: The response message containing the greetings
 tags:
+    - name: Dotadna
     - name: Greeter
+      description: The greeting service definition.
